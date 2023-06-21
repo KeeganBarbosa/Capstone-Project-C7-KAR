@@ -49,6 +49,19 @@ resource "aws_subnet" "non_production_subnet5" {
   }
 }
 
+resource "aws_subnet" "non_production_subnet6" {
+  vpc_id            = aws_vpc.non_production_vpc.id
+  cidr_block        = "172.12.6.0/24"
+  availability_zone = "us-east-1a"
+  map_public_ip_on_launch = true
+
+  tags = {
+    terraform = "true"
+    Name = "NAT Subnet"
+  }
+}
+
+
 # Create the subnets for the on-prem VPC
 
 resource "aws_subnet" "on_premises_private_subnet" {

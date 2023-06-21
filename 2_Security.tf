@@ -1,3 +1,11 @@
+#North American IP
+
+data "aws_ip_ranges" "america_ec2" {
+  regions  = ["us-east-1", "us-west-1","us-east-2", "us-west-2"]
+  services = ["ec2"]
+}
+
+
 #Security Group Construction
 
 resource "aws_security_group" "non_production_security_group" {
@@ -80,7 +88,7 @@ resource "aws_security_group" "non_production_security_group" {
 
 resource "aws_security_group" "on_premises_security_group" {
   name   = "My on premises security group"
-  vpc_id = aws_vpc.non_production_vpc.id
+  vpc_id = aws_vpc.on_premises_vpc.id
 
   egress {
     from_port   = 22
@@ -165,7 +173,7 @@ resource "aws_security_group" "on_premises_security_group" {
 
 resource "aws_security_group" "production_security_group" {
   name   = "My production security group"
-  vpc_id = aws_vpc.non_production_vpc.id
+  vpc_id = aws_vpc.production_vpc.id
 
   ingress {
     from_port   = 22
@@ -185,7 +193,7 @@ resource "aws_security_group" "production_security_group" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = data.aws_ip_ranges.america_ec2.cidr_blocks
   }
 
 
@@ -193,7 +201,7 @@ resource "aws_security_group" "production_security_group" {
     from_port   = 80
     to_port     = 80
     protocol    = "udp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = data.aws_ip_ranges.america_ec2.cidr_blocks
   }
 
 
@@ -201,21 +209,21 @@ resource "aws_security_group" "production_security_group" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = data.aws_ip_ranges.america_ec2.cidr_blocks
   }
 
     egress {
     from_port   = 80
     to_port     = 80
     protocol    = "udp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = data.aws_ip_ranges.america_ec2.cidr_blocks
   }
 
       ingress {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = data.aws_ip_ranges.america_ec2.cidr_blocks
   }
 
 
@@ -223,7 +231,7 @@ resource "aws_security_group" "production_security_group" {
     from_port   = 443
     to_port     = 443
     protocol    = "udp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = data.aws_ip_ranges.america_ec2.cidr_blocks
   }
 
 
@@ -231,14 +239,14 @@ resource "aws_security_group" "production_security_group" {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = data.aws_ip_ranges.america_ec2.cidr_blocks
   }
 
     egress {
     from_port   = 443
     to_port     = 443
     protocol    = "udp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = data.aws_ip_ranges.america_ec2.cidr_blocks
   }
 
 
