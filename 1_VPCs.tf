@@ -9,6 +9,8 @@ resource "aws_vpc" "non_production_vpc" {
 
 resource "aws_vpc" "on_premises_vpc" {
   cidr_block = "172.16.1.0/27"
+  enable_dns_support = true
+  enable_dns_hostnames = true
   tags = {
     terraform = "true"
     Name = "On Premises VPC"

@@ -43,3 +43,18 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "production_attachment" {
     Name = "Production tgw attachment"
   }
 }
+
+
+
+
+# Create VPN connection
+resource "aws_vpn_connection" "connection1" {
+  customer_gateway_id    = aws_customer_gateway.customer_gateway.id
+  transit_gateway_id     = aws_ec2_transit_gateway.transit_gateway.id
+  type                   = "ipsec.1"
+
+tags = {
+  Name = "VPN Connection"
+}
+
+}

@@ -6,6 +6,10 @@ resource "aws_lb" "nlb" {
 
   enable_cross_zone_load_balancing = true  # Optional: Enable cross-zone load balancing
 
+  tags          = {
+    Name        = "Network Load Balancer"
+  }
+
 }
 
 
@@ -54,6 +58,10 @@ resource "aws_lb" "alb" {
  subnets            =   [aws_subnet.application_layer_subnet1.id,aws_subnet.application_layer_subnet2.id]# Replace with the actual subnet IDs
 
  enable_cross_zone_load_balancing = true  # Optional: Enable cross-zone load balancing
+
+  tags        = {
+  Name        = "Application Load Balancer"
+  }
 
 }
 

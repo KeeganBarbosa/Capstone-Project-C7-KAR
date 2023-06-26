@@ -20,10 +20,14 @@ resource "aws_db_instance" "database" {
   allocated_storage      = 5
   engine                 = "MySQL"
   username               = "test"
-  password               = "test"
+  password               = "SorryThisIsSoLongCapstoneTeam!"
   db_subnet_group_name   = aws_db_subnet_group.db_group.name
   vpc_security_group_ids = [aws_security_group.production_security_group.id]
   publicly_accessible    = false
   skip_final_snapshot    = true
+
+  tags                    = {
+    Name                  = "MySQL Database"
+  }
 }
 
