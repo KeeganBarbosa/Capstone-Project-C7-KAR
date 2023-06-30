@@ -15,11 +15,11 @@ resource "aws_instance" "on_premises_instance" {
 }
 
 
-# Create EC2 Instance production
+# Create Production EC2 Instances
 
 resource "aws_instance" "presentation_instance1" {
-  ami           = "ami-022e1a32d3f742bd8"  # Replace with your desired AMI ID
-  instance_type = "t3.micro"  # Replace with your desired instance type
+  ami           = "ami-022e1a32d3f742bd8"  
+  instance_type = "t3.micro"  
   key_name      = "mypreskey"
   subnet_id     =  aws_subnet.presentation_layer_public_subnet1.id
 
@@ -32,8 +32,8 @@ resource "aws_instance" "presentation_instance1" {
 }
 
 resource "aws_instance" "presentation_instance2" {
-  ami           = "ami-022e1a32d3f742bd8"  # Replace with your desired AMI ID
-  instance_type = "t3.micro"  # Replace with your desired instance type
+  ami           = "ami-022e1a32d3f742bd8"  
+  instance_type = "t3.micro" pe
   key_name      = "mypreskey"
   subnet_id     =  aws_subnet.presentation_layer_public_subnet2.id
 
